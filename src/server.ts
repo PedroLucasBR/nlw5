@@ -1,27 +1,25 @@
 import express from 'express';
 
+import { routes } from "../src/routes";
+
 import "./database";
 
 const app = express();
 
-/**
- * GET - buscas
- * POST - criação
- * PUT - alteração
- * DELETE - deletar
- * PATCH - alterar informação específica
- */
+app.use(express.json());
 
-app.get("/", (req, res) => {
-    return res.json({
-        message: "fala meu chapinha"
-    });
-});
+app.use(routes);
 
-app.post("/users", (req, res) => {
-    return res.json({
-        message: "user left your channel!"
-    });
-});
+// app.get("/", (req, res) => {
+//     return res.json({
+//         message: "fala meu chapinha"
+//     });
+// });
+
+// app.post("/users", (req, res) => {
+//     return res.json({
+//         message: "user left your channel!"
+//     });
+// });
 
 app.listen(3333, () => console.log("ta rodando de boa"));
