@@ -1,6 +1,19 @@
 import { Router } from "express";
-import { getCustomRepository } from "typeorm";
-import { SettingsRepository } from "./repositories/SettingsRepository";
+import { SettingsController } from "./controllers/SettingsController";
+
+const routes = Router();
+
+const settingsController = new SettingsController;
+
+routes.post("/settings", settingsController.create);
+
+export { routes };
+
+
+
+/**
+ * Anotações!
+ */
 
 /**
  * GET - buscas
@@ -8,9 +21,7 @@ import { SettingsRepository } from "./repositories/SettingsRepository";
  * PUT - alteração
  * DELETE - deletar
  * PATCH - alterar informação específica
- */
-
-const routes = Router();
+*/
 
 /**
  * Tipos de Parâmetros
@@ -24,21 +35,3 @@ const routes = Router();
  *  "username": "pedro"
  * }
  */
-
-routes.post("/settings", async (req, res) => {
-  const { username, chat } = req.body;
-
-  const settingsRepository = getCustomRepository(SettingsRepository);
-
-  const settings = settingsRepository.create({
-    username,
-    chat
-  });
-
-  await settingsRepository.save(settings);
-
-  return res.json(settings);
-
-});
-
-export { routes };
